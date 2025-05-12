@@ -7,17 +7,32 @@
   <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
-  <div class="main-container">
-    <div class="chosen-name" id="chosenName">Birini Seçin!</div>
+  <div class="main-container" style="display: flex; gap: 40px; align-items: flex-start; justify-content: center;">
 
+    <div class="side-panel">
+      <h3>Sayı Seçici</h3>
+      <div>
+        <label for="min">Min:</label>
+        <input type="number" id="min" value="1" style="width: 60px;" />
+        <label for="max">Max:</label>
+        <input type="number" id="max" value="20" style="width: 60px;" />
+        <button id="chooseNumberButton">Sayı Seç!</button>
+      </div>
+      <div class="chosen-number" id="chosenNumber">Bir sayı seçin!</div>
+      <ul id="numberList"></ul>
+    </div>
+
+    <div class="center-panel" style="text-align: center;">
+      <div class="chosen-name" id="chosenName">Birini Seçin!</div>
+      <button id="chooseButton">Seç!</button>
+    </div>
     <div class="side-panel">
       <h3>Listeyi Düzenle</h3>
       <ul id="nameList"></ul>
     </div>
-
-    <button id="chooseButton">Seç!</button>
   </div>
 
   <script src="./js/index.js"></script>
 </body>
+
 </html>
