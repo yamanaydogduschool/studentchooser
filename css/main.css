@@ -1,57 +1,144 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+  height: 100vh;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  overflow: hidden;
+}
+
+.main-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  width: 90%;
+  height: 80%;
+  max-width: 1200px;
+  position: relative;
+  flex-wrap: wrap;
+}
+
+.side-panel-left,
+.side-panel-right {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+  height: 55vh;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  overflow: hidden;
+}
+
+.side-panel-left {
+  width: 20%;
+  min-width: 200px;
+  left: 0;
+}
+
+.side-panel-right {
+  width: 20%;
+  min-width: 200px;
+  right: 0;
+  padding: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.center-panel {
+  flex: 1;
+  text-align: center;
+  position: relative;
+  padding: 20px;
+  z-index: 1;
+}
+
+.chosen-name,
+.chosen-number {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+#chooseButton,
+#chooseNumberButton {
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  border: none;
+  background-color: #28a745;
+  color: white;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+#min,
+#max {
+  padding: 10px;
+  margin-top: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100px;
+}
+
+.side-panel-left h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+#nameList {
+  flex: 1;
+  overflow-y: auto;
+  list-style: upper-roman;
+  padding: 10px;
+  margin: 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #f9f9f9;
+  display: flex;
+  flex-direction: column;
+}
+
+#nameList li {
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+}
+
+input[type="checkbox"] {
+  transform: scale(1.25);
+  margin-right: 8px;
+}
+
+@media (max-width: 768px) {
+  .side-panel-left,
+  .side-panel-right {
+    width: 100%;
+    min-width: unset;
+    height: auto;
+    position: static;
+    transform: none;
   }
-  
+
   .main-container {
-    display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
   }
-  
-  .chosen-name {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    text-align: center;
-    font-weight: bold;
+
+  .center-panel {
+    margin-top: 20px;
+    text-align: left;
+    width: 100%;
   }
-  
-  #chooseButton {
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    border: none;
-    background-color: #28a745;
-    color: white;
-    border-radius: 5px;
-    margin-bottom: 20px;
-  }
-  
-  .side-panel {
-    position: absolute;
-    top: 10%;
-    right: 10%;
-    background-color: #ffffff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  }
-  
-  #nameList {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  #nameList li {
-    margin: 5px 0;
-  }
-  
-  #nameList input {
-    margin-right: 10px;
-  }
+}

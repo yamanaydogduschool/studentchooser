@@ -1,4 +1,4 @@
-let data = JSON.parse(localStorage.getItem('data')) || { 
+let data = JSON.parse(localStorage.getItem('data')) || {
   names: ["Ahmet Alp Bilgili", "Ada Ozan", "Bera Kutlu", "Burak Utku Yetim", "Deniz Baran Eren", "Duru Kazanoğlu", "Ecrin Naz Akça", "Emir Haktan Kangal", "Hira Doğan", "İpek Akdemir", "İpek Gökşen", "İpek Salihoğlu", "İlker Pala", "Nil Zehra Şahin", "Okan Topal", "Yaman Aydoğdu", "Zeynep İpek Çelik", "Zeynep Kübra Kalınkara"],
   pickedNames: [],
   pickedNumbers: []
@@ -10,69 +10,51 @@ const nameListDisplay = document.getElementById("nameList");
 
 const chooseNumberButton = document.getElementById("chooseNumberButton");
 const chosenNumberDisplay = document.getElementById("chosenNumber");
-const numberListDisplay = document.getElementById("numberList");
 
 function updateNameList() {
   nameListDisplay.innerHTML = "";
   data.names.forEach((name, index) => {
     const li = document.createElement("li");
+    li.style.display = "flex";
+    li.style.alignItems = "center";
+    li.style.gap = "10px";
+    li.style.padding = "4px 0";
 
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
     checkbox.id = `name-${index}`;
-    checkbox.checked = !data.pickedNames.includes(name); 
+    checkbox.checked = !data.pickedNames.includes(name);
 
     checkbox.addEventListener("change", () => {
       if (checkbox.checked) {
-        data.pickedNames = data.pickedNames.filter(n => n !== name); 
+        data.pickedNames = data.pickedNames.filter(n => n !== name);
       } else {
-        data.pickedNames.push(name); 
+        if (!data.pickedNames.includes(name)) {
+          data.pickedNames.push(name);
+        }
       }
+
       localStorage.setItem('data', JSON.stringify(data));
     });
+    
 
-    li.appendChild(checkbox);
     const label = document.createElement("label");
     label.textContent = name;
+    label.setAttribute("for", checkbox.id);
+
+    li.appendChild(checkbox);
     li.appendChild(label);
     nameListDisplay.appendChild(li);
   });
 }
 
-function updateNumberList(min, max) {
-  numberListDisplay.innerHTML = "";
-  for (let i = min; i <= max; i++) {
-    const li = document.createElement("li");
-
-    const checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
-    checkbox.id = `number-${i}`;
-    checkbox.checked = !data.pickedNumbers.includes(i);
-
-    checkbox.addEventListener("change", () => {
-      if (checkbox.checked) {
-        data.pickedNumbers = data.pickedNumbers.filter(n => n !== i);
-      } else {
-        if (!data.pickedNumbers.includes(i)) data.pickedNumbers.push(i);
-      }
-      localStorage.setItem('data', JSON.stringify(data));
-    });
-
-    li.appendChild(checkbox);
-    const label = document.createElement("label");
-    label.textContent = i;
-    li.appendChild(label);
-    numberListDisplay.appendChild(li);
-  }
-}
-
 chooseButton.addEventListener("click", () => {
   const availableNames = data.names.filter(name => !data.pickedNames.includes(name));
-  
+
   if (availableNames.length === 0) {
     alert("Tüm isimler seçildi, liste sıfırlandı!");
-    data.pickedNames = []; 
-    updateNameList(); 
+    data.pickedNames = [];
+    updateNameList();
     localStorage.setItem('data', JSON.stringify(data));
     return;
   }
@@ -95,24 +77,12 @@ chooseNumberButton.addEventListener("click", () => {
   }
 
   const allNumbers = Array.from({ length: max - min + 1 }, (_, i) => i + min);
-  const availableNumbers = allNumbers.filter(num => !data.pickedNumbers.includes(num));
+  const chosenNumber = allNumbers[Math.floor(Math.random() * allNumbers.length)];
 
-  if (availableNumbers.length === 0) {
-    alert("Tüm sayılar seçildi, liste sıfırlandı!");
-    data.pickedNumbers = [];
-    updateNumberList(min, max);
-    localStorage.setItem('data', JSON.stringify(data));
-    return;
-  }
-
-  const chosenNumber = availableNumbers[Math.floor(Math.random() * availableNumbers.length)];
   chosenNumberDisplay.textContent = chosenNumber;
-  data.pickedNumbers.push(chosenNumber);
 
-  updateNumberList(min, max);
+  data.pickedNumbers.push(chosenNumber);
   localStorage.setItem('data', JSON.stringify(data));
 });
 
-// Initial Load
 updateNameList();
-updateNumberList(parseInt(document.getElementById("min").value), parseInt(document.getElementById("max").value));
